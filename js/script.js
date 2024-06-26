@@ -1,32 +1,44 @@
-const body = document.querySelector("body"),
-      modeToggle = body.querySelector(".mode-toggle");
-      sidebar = body.querySelector("nav");
-      sidebarToggle = body.querySelector(".sidebar-toggle");
+document.addEventListener("DOMContentLoaded", function () {
+  const body = document.querySelector("body");
+  const sidebar = document.querySelector("nav");
+  const sidebarToggle = document.querySelector(".sidebar-toggle");
 
-let getMode = localStorage.getItem("mode");
-if(getMode && getMode ==="dark"){
-    body.classList.toggle("dark");
-}
+  // Dark mode toggle
+  let getMode = localStorage.getItem("mode");
+  if (getMode && getMode === "dark") {
+    body.classList.add("dark");
+  }
 
-let getStatus = localStorage.getItem("status");
-if(getStatus && getStatus ==="close"){
-    sidebar.classList.toggle("close");
-}
+  // Sidebar toggle
+  let getStatus = localStorage.getItem("status");
+  if (getStatus && getStatus === "close") {
+    sidebar.classList.add("close");
+  }
 
-modeToggle.addEventListener("click", () =>{
-    body.classList.toggle("dark");
-    if(body.classList.contains("dark")){
-        localStorage.setItem("mode", "dark");
-    }else{
-        localStorage.setItem("mode", "light");
-    }
+  // Sidebar toggle functionality
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener("click", function () {
+      sidebar.classList.toggle("close");
+      const status = sidebar.classList.contains("close") ? "close" : "open";
+      localStorage.setItem("status", status);
+    });
+  }
+});
+
+modeToggle.addEventListener("click", () => {
+  body.classList.toggle("dark");
+  if (body.classList.contains("dark")) {
+    localStorage.setItem("mode", "dark");
+  } else {
+    localStorage.setItem("mode", "light");
+  }
 });
 
 sidebarToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("close");
-    if(sidebar.classList.contains("close")){
-        localStorage.setItem("status", "close");
-    }else{
-        localStorage.setItem("status", "open");
-    }
-})
+  sidebar.classList.toggle("close");
+  if (sidebar.classList.contains("close")) {
+    localStorage.setItem("status", "close");
+  } else {
+    localStorage.setItem("status", "open");
+  }
+});
